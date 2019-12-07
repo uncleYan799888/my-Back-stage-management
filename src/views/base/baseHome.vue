@@ -8,7 +8,7 @@
                 </div>
                 <div class="left_b">
                     <div class="left_b_a">{{ userAccount }}</div>
-                    <p class="left_b_b">超级管理员</p>
+                    <p class="left_b_b">{{ identity }}</p>
                 </div>
             </div>
             <div class="left_bottom">
@@ -91,9 +91,10 @@ import { mapState } from 'vuex'
 export default {
     computed: {
     ...mapState({
-      userAccount:state => state.userAccount
+    userAccount:state => state.userInfo.account,
+    identity: state => state.userInfo.identity
     })
-  },
+},
     data() {
         return {
             check: [
@@ -104,12 +105,13 @@ export default {
                 {checked: false},
                 {checked: false}
             ]
+            // identity: ''//身份
         }
     },
     methods: {
         errorHandler() {
         return true
-      }
+    }
     }
 }
 </script>

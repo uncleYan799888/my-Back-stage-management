@@ -1,3 +1,4 @@
+import i18n from './i18n/i18n'
 import 'es6-promise/auto'
 import Vue from 'vue'
 import App from './App.vue'
@@ -6,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import store from './store'
 import axios from 'axios'
+
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
@@ -22,6 +24,7 @@ router.beforeEach((to, from, next) => {
   // let token = localStorage.getItem('token')
   // let token = store.state.userAccount
   let token = window.sessionStorage.getItem('token')
+  // let info = store.state.userInfo
   // 如果已经登录，那我不干涉你，让你随便访问
   if (token) {
     // 已登录，就根据token获取用户信息
@@ -42,5 +45,6 @@ new Vue({
   router,
   store,
   axios,
+  i18n,
   render: h => h(App)
 }).$mount('#app')

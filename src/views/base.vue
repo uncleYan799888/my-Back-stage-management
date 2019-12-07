@@ -42,6 +42,10 @@
             <i class="el-icon-user"></i>
             <span slot="title">个人信息</span>
           </el-menu-item>
+          <el-menu-item index="/Internationalization">
+            <i class="el-icon-picture-outline-round"></i>
+            <span slot="title">国际化</span>
+          </el-menu-item>
           <el-submenu index="3">
             <template slot="title">
               <i class="el-icon-location"></i>

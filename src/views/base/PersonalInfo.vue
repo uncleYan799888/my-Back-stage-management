@@ -1,6 +1,6 @@
 <template>
   <div class="personalInfo" v-loading='sendingAvatar'>
-    <el-upload
+    <!-- <el-upload
       class="avatar-uploader"
       action="https://jsonplaceholder.typicode.com/posts/"
       :show-file-list="false"
@@ -8,7 +8,17 @@
       :before-upload="beforeAvatarUpload">
       <img v-if="imageUrl" :src="imageUrl" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+      <div class="avatar" ref="d"></div>
+    </el-upload> -->
+    <div class="avatar">
+      <el-avatar shape="square" :size="200" fit="fit" src="http://localhost:8080/avatar.jpg"></el-avatar>
+    </div>
+    <div class="info">
+      <div class="info_item">name <span class="info_item_v">{{userInfo.name}}</span></div>
+      <div class="info_item">age: <span class="info_item_v">{{userInfo.age}}</span></div>
+      <div class="info_item">hobby: <span v-for="(item, index) in userInfo.hobby" :key="index">{{item}} </span> </div>
+      <div class="info_item">city: <span class="info_item_v">{{userInfo.city}}</span></div>
+    </div>
   </div>
 </template>
 
@@ -24,13 +34,11 @@ import { mapState } from 'vuex'
       };
     },
     created() {
-      // if(this.$store.state.userInfo) {
-      //   this.imageUrl = this.$store.state.userInfo.avatar
-      //   // console.log('image', avatar)
-      // } else {
-      //   console.log('没有头像')
-      // }
+      // console.log('ref',this.$refs)
       this.getAvatar()
+    },
+    mounted() {
+      console.log('ref',this.$refs.d.style.background = `url(${this.imageUrl})`)
     },
     methods: {
       handleAvatarSuccess(res, file) {
@@ -88,7 +96,9 @@ import { mapState } from 'vuex'
         console.log('token', token)
         getUserInfo({token: token}).then(res => {
           this.imageUrl = res.data.data.avatar
-          console.log('拿头像', this.imageUrl)
+          console.log('拿头像', typeof this.imageUrl)
+        }).catch(err => {
+          throw err
         })
       }
   }
@@ -97,10 +107,13 @@ import { mapState } from 'vuex'
 
 <style>
 .personalInfo {
-  text-align: center;
+  /* text-align: center; */
   padding: 20px;
   background: #fff;
   height: 100%;
+}
+.infoGrounp {
+  /* display: flex; */
 }
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
@@ -121,8 +134,16 @@ import { mapState } from 'vuex'
     text-align: center;
   }
   .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
+    text-align: center;
+  }
+  .info {
+    margin-left: 30%;
+    margin-top: 20px;
+  }
+  .info_item {
+    margin-top: 10px;
+  }
+  .info_item_v {
+    margin-left: 10px;
   }
 </style>

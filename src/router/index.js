@@ -27,7 +27,8 @@ const routes = [
       {path: '/todoList', component: () => import('../views/base/todoList')},
       { path: '/addRestaurant', component: () => import('../views/restaurant/addRestaurant') },
       { path: '/StarRestaurant', component: () => import('../views/restaurant/StarRestaurant') },
-      {path: '/personalInfo', component: () => import('../views/base/PersonalInfo')}
+      { path: '/personalInfo', component: () => import('../views/base/PersonalInfo') },
+      {path: '/Internationalization', component: () => import('../views/base/Internationalization')}
     ]
   }
   // {

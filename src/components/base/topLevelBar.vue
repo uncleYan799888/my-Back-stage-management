@@ -1,11 +1,10 @@
 <template>
     <div class="TopLevelBar">
-        <!-- <div class="TopLevelBarTitle" @click="back">{{title}}</div> -->
         <div class="TopLevelBarInfo">
           <div class="TopLevelBarInfoVartar">
             <el-avatar :size="50" fit="fill" src="http://localhost:8080/avatar.jpg"></el-avatar>
           </div>
-          <div class="TopLevelBarInfoName">{{userAccount}}</div>
+          <div class="TopLevelBarInfoName">{{name}}</div>
         </div>
     </div>
 </template>
@@ -15,7 +14,7 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      userAccount:state => state.userAccount
+      name:state => state.userInfo.name
     })
   },
     data() {
