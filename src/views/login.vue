@@ -40,12 +40,19 @@ export default {
       axios.get('http://localhost:3000/login',{
         params: {account: this.userInfo.account, password: this.userInfo.password}}).then(res => {
           if(res.data.statu === 1) {
-            this.$store.dispatch('loginByUsername', this.userInfo).then(()=> {
-                console.log('login页面', res)
-                this.$router.push({path: '/base'})
-            }).catch(err => {
-              this.$message.error(err)
-            })
+            console.log('登录成功', res.data.token)
+            window.sessionStorage.setItem('token', res.data.token)
+            // this.$store.dispatch('loginByUsername', this.userInfo).then(()=> {
+            //     console.log('login页面', res)
+                setTimeout(() => {
+                  this.$router.push({path: '/base'})
+                }, 500);
+            //     // let token = window.sessionStorage.getItem('token')
+            //     // this.$store.dispatch('getInfo', token)
+                
+            // }).catch(err => {
+            //   this.$message.error(err)
+            // })
           } else {
             this.$message.error('登录失败')
           }

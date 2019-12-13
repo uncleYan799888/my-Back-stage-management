@@ -11,6 +11,15 @@ const actions = {
         //将token存在本地
         window.sessionStorage.setItem('token', res.data.token)
         state.commit('login', username)
+        //   axios.get('http://localhost:3000/getUserInfo', { params: { token: res.data.token } }).then(res => {
+        //   console.log('userinfo', res)
+        //   //将用户信息存在vuex
+        //   state.commit('saveUserInfo', res.data.data)
+        //   }).catch(err => {
+        //   throw err
+        // })
+      }).catch(err => {
+        throw err
       })
         resolve()
     }).catch(error => {
@@ -23,7 +32,7 @@ const actions = {
       axios.get('http://localhost:3000/getUserInfo', { params: { token: token } }).then(res => {
         console.log('userinfo', res)
         //将用户信息存在vuex
-        state.commit('saveUserInfo', res.data.data)
+        state.commit('saveUserInfo', res.data.data[0])
       })
       resolve()
     }).catch(error => {
