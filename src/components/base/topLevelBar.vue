@@ -2,7 +2,7 @@
     <div class="TopLevelBar">
         <div class="TopLevelBarInfo">
           <div class="TopLevelBarInfoVartar">
-            <el-avatar :size="50" fit="fill" src="http://localhost:8080/avatar.jpg"></el-avatar>
+            <el-avatar :size="50" fit="fill" :src="avatar"></el-avatar>
           </div>
           <div class="TopLevelBarInfoName">{{name}}</div>
         </div>
@@ -14,7 +14,8 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      name:state => state.userInfo.name
+      name:state => state.userInfo.name,
+      avatar:state => state.userInfo.avatar
     })
   },
     data() {

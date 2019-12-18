@@ -37,8 +37,7 @@ export default {
   methods: {
     login() {
       console.log('login')
-      axios.get('http://localhost:3000/login',{
-        params: {account: this.userInfo.account, password: this.userInfo.password}}).then(res => {
+      axios.post('http://localhost:3000/login',{account: this.userInfo.account, password: this.userInfo.password}).then(res => {
           if(res.data.statu === 1) {
             console.log('登录成功', res.data.token)
             window.sessionStorage.setItem('token', res.data.token)
@@ -46,7 +45,7 @@ export default {
             //     console.log('login页面', res)
                 setTimeout(() => {
                   this.$router.push({path: '/base'})
-                }, 500);
+                }, 200);
             //     // let token = window.sessionStorage.getItem('token')
             //     // this.$store.dispatch('getInfo', token)
                 

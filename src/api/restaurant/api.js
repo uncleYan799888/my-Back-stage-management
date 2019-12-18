@@ -12,7 +12,7 @@ export function FoodListInput(params) {
 // 表格
 export function getData(params) {
   return service({
-    url: '/list/product',
+    url: '/restaurantList',
     method: 'get',
     params
   })

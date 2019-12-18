@@ -4,10 +4,10 @@
             <div class="left_1">
                 <div class="left_top">
                 <div class="left_a">
-                    <el-avatar :size="100" src="http://localhost:8080/avatar.jpg" @error="errorHandler"></el-avatar>
+                    <el-avatar :size="100" :src="avatar" @error="errorHandler"></el-avatar>
                 </div>
                 <div class="left_b">
-                    <div class="left_b_a">{{ userAccount }}</div>
+                    <div class="left_b_a">{{ name }}</div>
                     <p class="left_b_b">{{ identity }}</p>
                 </div>
             </div>
@@ -91,8 +91,9 @@ import { mapState } from 'vuex'
 export default {
     computed: {
     ...mapState({
-    userAccount:state => state.userInfo.account,
-    identity: state => state.userInfo.identity
+    name:state => state.userInfo.name,
+    identity: state => state.userInfo.identity,
+    avatar: state => state.userInfo.avatar
     })
 },
     data() {

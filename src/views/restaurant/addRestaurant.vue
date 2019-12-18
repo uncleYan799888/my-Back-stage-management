@@ -7,7 +7,7 @@
     <el-form-item label="餐馆老板" prop="name">
       <el-input v-model="ruleForm.name" class="restaurantName"></el-input>
     </el-form-item>
-    <el-form-item label="所在区域" prop="region" required>
+    <el-form-item label="所在区域" prop="place" required>
       <el-select v-model="ruleForm.place" placeholder="请选择所在区域">
         <el-option label="罗湖区" value="a"></el-option>
         <el-option label="南山区" value="b"></el-option>
@@ -41,7 +41,7 @@
         <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
       </el-checkbox-group>
     </el-form-item> -->
-    <el-form-item label="餐馆类型" prop="resource" required>
+    <el-form-item label="餐馆类型" prop="type" required>
       <el-radio-group v-model="ruleForm.type">
         <el-radio label="猪脚饭" value='zhujiaofan'></el-radio>
         <el-radio label="三及第" value='sanjidi'></el-radio>

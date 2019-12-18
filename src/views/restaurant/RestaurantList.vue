@@ -11,16 +11,6 @@
                     </el-option>
                 </el-select>
             </div>
-            <div class="select">
-                <el-select v-model="parame.food" placeholder="请选择快餐">
-                    <el-option
-                    v-for="item in options2"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
-                    </el-option>
-                </el-select>
-            </div>
             <div class="submit">
                 <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
             </div>
@@ -29,31 +19,27 @@
             <el-table
                 :data="dataTable"
                 style="width: 100%">
-                <el-table-column
-                type="index" label="编号"
-                width="50">
+                <el-table-column label="照片" width='60' align='center'>
+                    <template slot-scope="scope">
+                        <!-- <span style="margin-left: 10px">{{ scope.row.date }}</span> -->
+                        <el-avatar :size="50" :src="scope.row.avatar" shape="square" @error="errorHandler"></el-avatar>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="shopname"
-                    label="店名"
-                    width="150"
+                    label="店名" width='100'
                     align='center'>
                 </el-table-column>
                 <el-table-column
-                    prop="date"
-                    label="开店日期"
-                    width="100"
+                    prop="opentime"
+                    label="营业时间" width='200'
                     align='center'>
                 </el-table-column>
                 <el-table-column
-                    prop="name"
-                    label="老板"
-                    width="120"
+                    prop="consumption"
+                    label="消费"
+                    width='100'
                     align='center'>
-                </el-table-column>
-                <el-table-column
-                    prop="address"
-                    label="地址">
                 </el-table-column>
                 <el-table-column
                     prop="evaluate"
@@ -61,7 +47,17 @@
                     width='100'
                     align='center'>
                 </el-table-column>
-                </el-table>
+                <el-table-column
+                    prop="address"
+                    label="地址">
+                </el-table-column>
+                <el-table-column width='100'
+                    label="操作" align='center'>
+                    <template>
+                        <el-button size='small' type='primary'>详细</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
         </div>
         <div class="block">
             <!-- <span class="demonstration">完整功能</span> -->
@@ -124,6 +120,11 @@ export default {
             }
     },
     created() {
+        getData({region: 'a'}).then(res => {
+            this.tableData = res.data
+        }).catch(err => {
+            throw err
+        })
     },
     methods: {
         search() {
@@ -151,7 +152,10 @@ export default {
             console.log('datatable', this.dataTable)
             this.paging.current = val
             console.log(`当前页: ${val}`);
-        }
+        },
+        errorHandler() {
+        return true
+    }
     }
 }
 </script>
