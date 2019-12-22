@@ -36,16 +36,20 @@
                     align='center'>
                 </el-table-column>
                 <el-table-column
-                    prop="consumption"
                     label="消费"
-                    width='100'
+                    width='120'
                     align='center'>
+                    <template slot-scope="scope">
+                        <div>{{scope.row.consumption | consumptionTo}}</div>
+                    </template>
                 </el-table-column>
                 <el-table-column
-                    prop="evaluate"
                     label="评价"
                     width='100'
                     align='center'>
+                    <template slot-scope="scope">
+                        <div>{{scope.row.evaluate | numTo}}</div>
+                    </template>
                 </el-table-column>
                 <el-table-column
                     prop="address"
@@ -76,6 +80,14 @@
 <script>
 import {FoodListInput, getData} from '../../api/restaurant/api'
 export default {
+    filters:{
+        numTo(value) {
+            return value.toFixed(1)
+        },
+        consumptionTo(value){
+            return '人均：' + value.toFixed(1) + '元'
+        }
+    },
     computed:{
         //分页
         dataTable(){

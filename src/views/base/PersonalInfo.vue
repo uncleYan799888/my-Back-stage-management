@@ -11,7 +11,7 @@
       <div class="avatar" ref="d"></div>
     </el-upload> -->
     <div class="avatar">
-      <el-avatar shape="square" :size="200" fit="fit" src="http://localhost:8080/avatar.jpg"></el-avatar>
+      <el-avatar shape="square" :size="200" fit="fit" :src="userInfo.avatar"></el-avatar>
     </div>
     <div class="info">
       <div class="info_item">name <span class="info_item_v">{{userInfo.name}}</span></div>
