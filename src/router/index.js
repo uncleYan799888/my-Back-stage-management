@@ -28,7 +28,8 @@ const routes = [
       { path: '/addRestaurant', component: () => import('../views/restaurant/addRestaurant') },
       { path: '/StarRestaurant', component: () => import('../views/restaurant/StarRestaurant') },
       { path: '/personalInfo', component: () => import('../views/base/PersonalInfo') },
-      { path: '/Internationalization', component: () => import('../views/base/Internationalization') }
+      { path: '/Internationalization', component: () => import('../views/base/Internationalization') },
+      { path: '/todoListADMIN', component: () => import('../views/base/todoListADMIN') }
     ]
   }
   // {

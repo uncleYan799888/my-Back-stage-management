@@ -1,15 +1,5 @@
 <template>
   <div class="personalInfo" v-loading='sendingAvatar'>
-    <!-- <el-upload
-      class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload">
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      <div class="avatar" ref="d"></div>
-    </el-upload> -->
     <div class="avatar">
       <el-avatar shape="square" :size="200" fit="fit" :src="userInfo.avatar"></el-avatar>
     </div>
@@ -38,7 +28,7 @@ import { mapState } from 'vuex'
       this.getAvatar()
     },
     mounted() {
-      console.log('ref',this.$refs.d.style.background = `url(${this.imageUrl})`)
+      // console.log('ref',this.$refs.d.style.background = `url(${this.imageUrl})`)
     },
     methods: {
       handleAvatarSuccess(res, file) {

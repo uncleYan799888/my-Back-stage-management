@@ -1,5 +1,5 @@
 <template>
-  <div class="addRestaurant" v-loading.fullscreen.lock="fullscreenLoading">
+  <div class="addRestaurant" v-loading="fullscreenLoading">
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
     <el-form-item label='上传照片' prop='avatar'>
       <el-upload
@@ -132,19 +132,18 @@ import {addRestaurant} from '../../api/restaurant/api'
       submitForm(formName) {
         this.fullscreenLoading = true
         this.$refs[formName].validate((valid) => {
+          this.fullscreenLoading = false
           if (valid) {
             console.log('valid',valid)
             console.log('formName', formName)
-            // valid.append('avatar', this.base64Url)
-            // console.log(typeof this.ruleForm.date)
             addRestaurant(this.ruleForm).then(res => {
               console.log(res)
               this.$message({
-                message: '添加成功',
+                message: '添加成功，即将跳转',
                 type: 'success'
               })
               setTimeout(() => {
-                this.fullscreenLoading = false
+                // this.fullscreenLoading = false
                 this.$router.push('/RestaurantList')
               }, 500);
             }).catch(err => {

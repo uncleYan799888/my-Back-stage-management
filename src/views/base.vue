@@ -21,6 +21,10 @@
             <i class="el-icon-collection-tag"></i>
             <span slot="title">待办</span>
           </el-menu-item>
+          <el-menu-item index="/todoListADMIN">
+            <i class="el-icon-collection-tag"></i>
+            <span slot="title">待办ADMIN</span>
+          </el-menu-item>
           <!-- <el-menu-item index="/form">
             <i class="el-icon-document"></i>
             <span slot="title">基础表格</span>

@@ -1,10 +1,10 @@
 <template>
     <div class="todoList">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane :label="'待办' + '（' + notDone.length + '）'" name="first">
+            <el-tab-pane :label="'未处理' + '（' + notDone.length + '）'" name="first">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in notDone" :key="index">
-                        <div class="first_item_msg">{{item.event_detailed}}</div>
+                        <div class="first_item_msg" @click="showDialogVisible(item)">{{item.event_detailed}}</div>
                         <div class="first_item_time">
                             <div>{{item.event_time}}</div>
                             <el-button size='small' class="first_item_time_btn" @click="oneEven('first', index)">已处理</el-button>
@@ -13,7 +13,7 @@
                     <el-button type='primary' @click="open('全部标为已读')">全部标为已读</el-button>
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="'未通过' + '（' + notPass.length + '）'" name="second">
+            <el-tab-pane :label="'已驳回' + '（' + notPass.length + '）'" name="second">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in notPass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
@@ -26,7 +26,7 @@
                     <el-button type='danger' @click="open('全部删除')">全部删除</el-button>
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="'已办' + '（' + AlreadyDone.length + '）'" name="third">
+            <el-tab-pane :label="'已通过' + '（' + AlreadyDone.length + '）'" name="third">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in AlreadyDone" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
@@ -39,11 +39,29 @@
                 </div>
             </el-tab-pane>
         </el-tabs>
+        <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose">
+            <div>事件ID:  {{dialogVisibleMsg.eid}}</div>
+            <div>事件内容：{{dialogVisibleMsg.event_detailed}}</div>
+            <div>事件事件：{{dialogVisibleMsg.event_time}}</div>
+            <div>提交人员： {{dialogVisibleMsg.personnel_name}}</div>
+            <div>驳回原因：<el-input v-model="dialogVisibleMsg.reason" type="textarea" :rows="2"
+            maxlength="30" show-word-limit resize='none'></el-input></div>
+            <div class="input_check" v-if="showReasonCheck">请输入5位以上驳回原因</div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="Reject" type='danger'>驳 回</el-button>
+                <el-button type="primary" @click="dialogVisible = false">通 过</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
+import {todoListADMIN,todoReject} from '../../api/todoList/api'
 export default {
     data() {
         return {
@@ -51,10 +69,26 @@ export default {
             notDone: [],
             notPass: [],
             AlreadyDone:[],
+            dialogVisible: false,
+            dialogVisibleMsg: {
+                event_detailed: '',
+                event_time: '',
+                eid: 0,
+                personnel_account: '',
+                reason: ''
+            },
+            dialogVisibleReason: '',
+            showReasonCheck: false
         }
     },
     created() {
-        this.getTodoList()
+        todoListADMIN().then(res =>{
+            this.notDone = res.data.notDone
+            this.notPass = res.data.notPass
+            this.AlreadyDone = res.data.AlreadyDone
+        }).catch(err => {
+            throw err
+        })
     },
     methods: {
         handleClick(tab, event) {
@@ -102,17 +136,37 @@ export default {
         });          
         });
     },
-    getTodoList() {
-        axios.get('http://localhost:3000/todoList').then(res => {
-            console.log(res)
-            this.notDone = res.data.notDone
-            this.notPass = res.data.notPass
-            this.AlreadyDone = res.data.AlreadyDone
-            // this.second = res.data.data.second
-            // this.Deleted = res.data.data.Deleted
-        }).catch(err => {
-            console.log(err)
-        })
+    handleClose(done) {
+        // this.$confirm('确认关闭？')
+        // .then(_ => {
+        //     console.log('done',done)
+            done()
+        // })
+        // .catch(_ => {});
+    },
+    showDialogVisible(item){
+        console.log('item',item)
+        this.dialogVisibleMsg.eid = item.eid
+        this.dialogVisibleMsg.event_detailed = item.event_detailed
+        this.dialogVisibleMsg.event_time = item.event_time
+        this.dialogVisibleMsg.personnel_name = item.personnel_name
+        this.dialogVisibleMsg.personnel_account = item.personnel_account
+        this.dialogVisibleMsg.reason = item.reason
+        this.dialogVisible = true
+    },
+    Reject() {
+        if(this.dialogVisibleMsg.reason.length<= 5 ){
+            this.showReasonCheck = true
+        } else {
+            this.$confirm('确认驳回？').then(_ => {
+                todoReject(this.dialogVisibleMsg).then(res => {
+                    alert('成功')
+                    this.dialogVisible = false
+                }).catch(err => {
+                    throw err
+                })
+            }).catch(_ =>{})
+        }
     }
     }
 }
@@ -143,5 +197,9 @@ export default {
 .first_item_time_btn {
     flex: 1;
     margin-left: 50px;
+}
+.input_check {
+    color: red;
+    font-size: 12px;
 }
 </style>
