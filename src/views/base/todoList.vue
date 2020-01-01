@@ -1,5 +1,12 @@
 <template>
     <div class="todoList">
+        <div class="top">
+            <div class="top_title">待办</div>
+            <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/baseHome' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>待办</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane :label="'待办' + '（' + notDone.length + '）'" name="first">
                 <div class="first">
@@ -122,6 +129,13 @@ export default {
 .todoList {
     padding: 20px;
     background: #fff;
+}
+.top_title {
+    font-size: 30px;
+    font-weight: bold;
+}
+.breadcrumb {
+    margin: 10px 0;
 }
 .first_item {
     display: flex;

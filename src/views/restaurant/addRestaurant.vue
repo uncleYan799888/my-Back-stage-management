@@ -1,77 +1,85 @@
 <template>
   <div class="addRestaurant" v-loading="fullscreenLoading">
-  <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label='上传照片' prop='avatar'>
-      <el-upload
-        class="avatar-uploader"
-        :action="action"
-        :show-file-list="false"
-        :on-success="handleAvatarSuccess"
-        :before-upload="beforeAvatarUpload">
-        <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
-        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-      </el-upload>
-    </el-form-item>
-    <el-form-item label="餐馆店名" prop="shopname">
-      <el-input v-model="ruleForm.shopname" class="restaurantName"></el-input>
-    </el-form-item>
-    <!-- <el-form-item label="餐馆老板" prop="name">
-      <el-input v-model="ruleForm.name" class="restaurantName"></el-input>
-    </el-form-item> -->
-    <el-form-item label="所在区域" prop="region" required>
-      <el-select v-model="ruleForm.region" placeholder="请选择所在区域">
-        <el-option label="罗湖区" value="a"></el-option>
-        <el-option label="南山区" value="b"></el-option>
-        <el-option label="宝安区" value="c"></el-option>
-        <el-option label="龙华区" value="d"></el-option>
-        <el-option label="福田区" value="e"></el-option>
-        <el-option label="龙岗区" value="f"></el-option>
-      </el-select>
-    </el-form-item>
-    <el-form-item label="营业时间" required>
-      <el-col :span="4">
-        <el-form-item prop="startTime">
-          <el-time-select
-            placeholder="开门时间"
-            v-model="ruleForm.startTime"
+    <div class="top">
+        <div class="top_title">添加餐馆</div>
+        <el-breadcrumb separator="/" class="breadcrumb">
+        <el-breadcrumb-item :to="{ path: '/baseHome' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>深圳餐馆整理</el-breadcrumb-item>
+        <el-breadcrumb-item>添加餐馆</el-breadcrumb-item>
+        </el-breadcrumb>
+    </div>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label='上传照片' prop='avatar'>
+        <el-upload
+          class="avatar-uploader"
+          :action="action"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="ruleForm.avatar" :src="ruleForm.avatar" class="avatar">
+          <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+        </el-upload>
+      </el-form-item>
+      <el-form-item label="餐馆店名" prop="shopname">
+        <el-input v-model="ruleForm.shopname" class="restaurantName"></el-input>
+      </el-form-item>
+      <!-- <el-form-item label="餐馆老板" prop="name">
+        <el-input v-model="ruleForm.name" class="restaurantName"></el-input>
+      </el-form-item> -->
+      <el-form-item label="所在区域" prop="region" required>
+        <el-select v-model="ruleForm.region" placeholder="请选择所在区域">
+          <el-option label="罗湖区" value="a"></el-option>
+          <el-option label="南山区" value="b"></el-option>
+          <el-option label="宝安区" value="c"></el-option>
+          <el-option label="龙华区" value="d"></el-option>
+          <el-option label="福田区" value="e"></el-option>
+          <el-option label="龙岗区" value="f"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="营业时间" required>
+        <el-col :span="4">
+          <el-form-item prop="startTime">
+            <el-time-select
+              placeholder="开门时间"
+              v-model="ruleForm.startTime"
+              :picker-options="{
+                start: '08:30',
+                step: '00:30',
+                end: '18:30'
+              }">
+            </el-time-select>
+          </el-form-item>
+        </el-col>
+        <el-col class="line" :span="1">-</el-col>
+        <el-col :span="4">
+          <el-form-item prop="endTime">
+            <el-time-select
+            placeholder="关门时间"
+            v-model="ruleForm.endTime"
             :picker-options="{
               start: '08:30',
               step: '00:30',
-              end: '18:30'
+              end: '23:30',
+              minTime: ruleForm.startTime
             }">
           </el-time-select>
-        </el-form-item>
-      </el-col>
-      <el-col class="line" :span="1">-</el-col>
-      <el-col :span="4">
-        <el-form-item prop="endTime">
-          <el-time-select
-          placeholder="关门时间"
-          v-model="ruleForm.endTime"
-          :picker-options="{
-            start: '08:30',
-            step: '00:30',
-            end: '23:30',
-            minTime: ruleForm.startTime
-          }">
-        </el-time-select>
-        </el-form-item>
-      </el-col>
-    </el-form-item>
-    <el-form-item label='人均消费' prop='consumption' required>
-      <el-input v-model="ruleForm.consumption" oninput = "value=value.replace(/[^\d]/g,'')" style="width:60px;" maxlength='3'></el-input>
-    </el-form-item>
-    <el-form-item label='整体评分' prop='evaluate' required>
-      <el-rate v-model="ruleForm.evaluate" class="rate" @change='rateChange' show-score text-color="#ff9900" :max='10'></el-rate>
-    </el-form-item>
-    <el-form-item label="详细地址" prop="address">
-      <el-input type="textarea" v-model="ruleForm.address"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
-    </el-form-item>
-  </el-form>
+          </el-form-item>
+        </el-col>
+      </el-form-item>
+      <el-form-item label='人均消费' prop='consumption' required>
+        <el-input v-model="ruleForm.consumption" oninput = "value=value.replace(/[^\d]/g,'')" style="width:60px;" maxlength='3'></el-input>
+      </el-form-item>
+      <el-form-item label='整体评分' prop='evaluate' required>
+        <el-rate v-model="ruleForm.evaluate" class="rate" @change='rateChange' show-score text-color="#ff9900" :max='10'></el-rate>
+      </el-form-item>
+      <el-form-item label="详细地址" prop="address">
+        <el-input type="textarea" v-model="ruleForm.address"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 <script>
@@ -209,6 +217,13 @@ import {addRestaurant} from '../../api/restaurant/api'
 .addRestaurant{
   background: #fff;
   padding: 20px;
+}
+.top_title {
+    font-size: 30px;
+    font-weight: bold;
+}
+.breadcrumb {
+    margin: 10px 0;
 }
 .restaurantName {
   width: 400px;

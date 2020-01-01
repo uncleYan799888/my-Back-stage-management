@@ -32,7 +32,7 @@
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-document"></i>
-              <span>深圳餐馆管理</span>
+              <span>深圳餐馆整理</span>
             </template>
               <el-menu-item index="/RestaurantList">
                 餐馆列表

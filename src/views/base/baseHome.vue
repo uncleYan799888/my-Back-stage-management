@@ -1,84 +1,89 @@
 <template>
-    <div class="a">
-        <div class="left">
-            <div class="left_1">
-                <div class="left_top">
-                <div class="left_a">
-                    <el-avatar :size="100" :src="avatar" @error="errorHandler"></el-avatar>
-                </div>
-                <div class="left_b">
-                    <div class="left_b_a">{{ name }}</div>
-                    <p class="left_b_b">{{ identity }}</p>
-                </div>
-            </div>
-            <div class="left_bottom">
-                <div>上次登录时间<span class="left_bottom_right">2019-10-10</span></div>
-                <div>上次登录地点<span class="left_bottom_right">深圳</span></div>
-            </div>
-            </div>
-            <div></div>
-            <div class="left_2">
-                <div class="left_2_top">
-                    <div>语言详情</div>
-                </div>
-                <div class="left_2_bottom">
-                    <div>
-                        <div>vue</div>
-                        <div><el-progress :percentage="60"></el-progress></div>
-                    </div>
-                    <div>
-                        <div>javascript</div>
-                        <div><el-progress :percentage="60"></el-progress></div>
-                    </div>
-                    <div>
-                        <div>css</div>
-                        <div><el-progress :percentage="60"></el-progress></div>
-                    </div>
-                    <div>
-                        <div>html</div>
-                        <div><el-progress :percentage="60"></el-progress></div>
-                    </div>
-                </div>
-            </div>
+    <div>
+        <div class="top">
+            <div class="top_title">首页</div>
         </div>
-        <div class="right">
-            <el-row class="right_top_group">
-                <el-col :span="8">
-                    <div class="right_item">
-                        <i class="el-icon-view right_icon right_icon_out_a"></i>
-                        <div class="right_item_font">
-                            <div class="right_item_font_a font_colora">1111</div>
-                            <div class="right_item_font_b">用户访问量</div>
-                        </div>
+        <div class="a">
+            <div class="left">
+                <div class="left_1">
+                    <div class="left_top">
+                    <div class="left_a">
+                        <el-avatar :size="100" :src="avatar" @error="errorHandler"></el-avatar>
                     </div>
-                </el-col>
-                <el-col :span="8">
-                    <div class="right_item">
-                        <i class="el-icon-bell right_icon right_icon_out_b"></i>
-                        <div class="right_item_font">
-                            <div class="right_item_font_a font_colorb">1111</div>
-                            <div class="right_item_font_b">用户访问量</div>
-                        </div>
+                    <div class="left_b">
+                        <div class="left_b_a">{{ name }}</div>
+                        <p class="left_b_b">{{ identity }}</p>
                     </div>
-                </el-col>
-                <el-col :span="8">
-                    <div class="right_item right_item_final">
-                        <i class="el-icon-news right_icon right_icon_out_c"></i>
-                        <div class="right_item_font">
-                            <div class="right_item_font_a font_colorc">1111</div>
-                            <div class="right_item_font_b">用户访问量</div>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
-            <div class="right_bottom">
-                <div class="right_bottom_top">
-                    <div class="right_bottom_top_a">待办事项</div>
-                    <div class="right_bottom_top_b">添加</div>
                 </div>
-                <div class="right_bottom_bottom">
-                    <div class="right_bottom_bottom_item" v-for="(item, index) in check" :key="index">
-                        <el-checkbox v-model="item.checked">今天要修100个bug</el-checkbox>
+                <div class="left_bottom">
+                    <div>上次登录时间<span class="left_bottom_right">2019-10-10</span></div>
+                    <div>上次登录地点<span class="left_bottom_right">深圳</span></div>
+                </div>
+                </div>
+                <div></div>
+                <div class="left_2">
+                    <div class="left_2_top">
+                        <div>语言详情</div>
+                    </div>
+                    <div class="left_2_bottom">
+                        <div>
+                            <div>vue</div>
+                            <div><el-progress :percentage="60"></el-progress></div>
+                        </div>
+                        <div>
+                            <div>javascript</div>
+                            <div><el-progress :percentage="60"></el-progress></div>
+                        </div>
+                        <div>
+                            <div>css</div>
+                            <div><el-progress :percentage="60"></el-progress></div>
+                        </div>
+                        <div>
+                            <div>html</div>
+                            <div><el-progress :percentage="60"></el-progress></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <el-row class="right_top_group">
+                    <el-col :span="8">
+                        <div class="right_item">
+                            <i class="el-icon-view right_icon right_icon_out_a"></i>
+                            <div class="right_item_font">
+                                <div class="right_item_font_a font_colora">1111</div>
+                                <div class="right_item_font_b">用户访问量</div>
+                            </div>
+                        </div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="right_item">
+                            <i class="el-icon-bell right_icon right_icon_out_b"></i>
+                            <div class="right_item_font">
+                                <div class="right_item_font_a font_colorb">1111</div>
+                                <div class="right_item_font_b">用户访问量</div>
+                            </div>
+                        </div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="right_item right_item_final">
+                            <i class="el-icon-news right_icon right_icon_out_c"></i>
+                            <div class="right_item_font">
+                                <div class="right_item_font_a font_colorc">1111</div>
+                                <div class="right_item_font_b">用户访问量</div>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+                <div class="right_bottom">
+                    <div class="right_bottom_top">
+                        <div class="right_bottom_top_a">待办事项</div>
+                        <div class="right_bottom_top_b">添加</div>
+                    </div>
+                    <div class="right_bottom_bottom">
+                        <div class="right_bottom_bottom_item" v-for="(item, index) in check" :key="index">
+                            <el-checkbox v-model="item.checked">今天要修100个bug</el-checkbox>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,6 +123,15 @@ export default {
 </script>
 
 <style scoped>
+.top {
+    margin: 10px 10px 0px;
+    padding: 10px;
+    background: #fff;
+}
+.top_title {
+    font-size: 30px;
+    font-weight: bold;
+}
 .a{
     display: flex;
 }
@@ -130,7 +144,7 @@ export default {
     padding: 20px;
     /* border: 1px solid red; */
     /* background: #fff; */
-    margin-top: 10px;
+    /* margin-top: 10px; */
     margin-left: 10px;
 }
 .left_top {
@@ -140,7 +154,7 @@ export default {
 }
 .right{
     width: 70%;
-    margin-top: 10px;
+    /* margin-top: 10px; */
     padding-right: 10px;
 }
 .left_a {

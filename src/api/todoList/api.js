@@ -26,3 +26,12 @@ export function todoReject(data) {
     data
   })
 }
+
+//管理员添加事项
+export function todoAdd(data) {
+  return service({
+    url: '/todoAdd',
+    method: 'post',
+    data
+  })
+}

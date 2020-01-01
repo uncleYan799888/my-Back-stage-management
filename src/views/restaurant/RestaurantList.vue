@@ -1,5 +1,13 @@
 <template>
     <div class="form">
+        <div class="top">
+            <div class="top_title">餐馆列表</div>
+            <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/baseHome' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>深圳餐馆整理</el-breadcrumb-item>
+            <el-breadcrumb-item>餐馆列表</el-breadcrumb-item>
+            </el-breadcrumb>
+        </div>
         <div class="select">
             <div class="select">
                 <el-select v-model="parame.region" placeholder="请选择区域" @change='searchFood'>
@@ -176,6 +184,13 @@ export default {
 .form {
     padding: 20px;
     background: #fff;
+}
+.top_title {
+    font-size: 30px;
+    font-weight: bold;
+}
+.breadcrumb {
+    margin: 10px 0;
 }
 .select {
     display: flex;
