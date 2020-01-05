@@ -124,7 +124,7 @@ export default {
 
 <style scoped>
 .top {
-    margin: 10px 10px 0px;
+    /* margin: 0px 0px 0px; */
     padding: 10px;
     background: #fff;
 }
@@ -145,7 +145,7 @@ export default {
     /* border: 1px solid red; */
     /* background: #fff; */
     /* margin-top: 10px; */
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 .left_top {
     display: flex;
@@ -155,7 +155,7 @@ export default {
 .right{
     width: 70%;
     /* margin-top: 10px; */
-    padding-right: 10px;
+    /* padding-right: 10px; */
 }
 .left_a {
     /* width: 100px;
@@ -255,7 +255,7 @@ export default {
     height: 220px;
     margin-top: 20px;
     background: #fff;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     padding: 20px;
     margin-bottom: 20px;
 }

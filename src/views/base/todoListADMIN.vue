@@ -16,7 +16,7 @@
                     <div class="first_item" v-for="(item, index) in notDone" :key="index">
                         <div class="first_item_msg" @click="showDialogVisible(item)">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
+                            <div><span>{{item.event_time}}</span></div>
                             <el-button size='small' class="first_item_time_btn" @click="oneEven('first', index)">已处理</el-button>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                     <!-- <el-button type='danger' @click="open('全部删除')">全部删除</el-button> -->
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="'已通过' + '（' + pass.length + '）'" name="third">
+            <el-tab-pane :label="'已完成' + '（' + pass.length + '）'" name="third">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in pass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>

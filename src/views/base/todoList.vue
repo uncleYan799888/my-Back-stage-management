@@ -11,16 +11,19 @@
             <el-tab-pane :label="'待办' + '（' + notDone.length + '）'" name="first">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in notDone" :key="index">
-                        <div class="first_item_msg">{{item.event_detailed}}</div>
+                        <div class="first_item_msg">
+                            <span class="first_item_msg_detailed">{{item.event_detailed}}</span>
+                            <el-tag type="danger" v-if="item.type === 'c'">被驳回</el-tag>
+                        </div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
-                            <el-button size='small' class="first_item_time_btn" @click="oneEven('first', index)">已处理</el-button>
+                            <div><span>{{item.event_time}}</span></div>
+                            <el-button size='small' class="first_item_time_btn" @click="submit(item.eid)">已处理</el-button>
                         </div>
                     </div>
                     <el-button type='primary' @click="open('全部标为已读')">全部标为已读</el-button>
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="'未通过' + '（' + notPass.length + '）'" name="second">
+            <el-tab-pane :label="'待管理员审批' + '（' + notPass.length + '）'" name="second">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in notPass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
@@ -33,7 +36,7 @@
                     <el-button type='danger' @click="open('全部删除')">全部删除</el-button>
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="'已办' + '（' + AlreadyDone.length + '）'" name="third">
+            <el-tab-pane :label="'已完成' + '（' + AlreadyDone.length + '）'" name="third">
                 <div class="first">
                     <div class="first_item" v-for="(item, index) in AlreadyDone" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
@@ -51,6 +54,7 @@
 
 <script>
 import axios from 'axios'
+import {todoSubmission,todoList} from '../../api/todoList/api'
 export default {
     data() {
         return {
@@ -110,7 +114,7 @@ export default {
         });
     },
     getTodoList() {
-        axios.get('http://localhost:3000/todoList').then(res => {
+        todoList().then(res => {
             console.log(res)
             this.notDone = res.data.notDone
             this.notPass = res.data.notPass
@@ -120,6 +124,16 @@ export default {
         }).catch(err => {
             console.log(err)
         })
+    },
+    submit(eid) {
+        this.$confirm('确认提交？').then(_=>{
+            todoSubmission({eid:eid}).then(res =>{
+            alert(res.data.msg)
+            this.getTodoList()
+        }).catch(err =>{
+            throw err
+        })
+        }).catch(_=> {})
     }
     }
 }
@@ -157,5 +171,8 @@ export default {
 .first_item_time_btn {
     flex: 1;
     margin-left: 50px;
+}
+.first_item_msg_detailed{
+    margin-right: 10px;
 }
 </style>

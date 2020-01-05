@@ -35,3 +35,12 @@ export function todoAdd(data) {
     data
   })
 }
+
+//执行者提交事项
+export function todoSubmission(data) {
+  return service({
+    url: '/todoSubmission',
+    method: 'post',
+    data
+  })
+}
