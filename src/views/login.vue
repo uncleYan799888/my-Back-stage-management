@@ -18,6 +18,8 @@
 
 <script>
 import axios from 'axios'
+import {mapMutations} from 'vuex'
+import {asyncRouterMap} from '../router'
 export default {
   name: 'home',
   data() {
@@ -35,25 +37,18 @@ export default {
     // this.checkCookie()
   },
   methods: {
+    ...mapMutations(['login_in']),
     login() {
       console.log('login')
       axios.post('http://localhost:3000/login',{account: this.userInfo.account, password: this.userInfo.password}).then(res => {
+        // this.$store.dispatch('loginByUsername',this.userInfo).then(() =>{
           if(res.data.statu === 1) {
             console.log('登录成功', res.data.token)
             window.sessionStorage.setItem('token', res.data.token)
-            // this.$store.dispatch('loginByUsername', this.userInfo).then(()=> {
-            //     console.log('login页面', res)
-                setTimeout(() => {
+            this.login_in(res.data.token)
+                // setTimeout(() => {
                   this.$router.push({path: '/base'})
-                }, 200);
-            //     // let token = window.sessionStorage.getItem('token')
-            //     // this.$store.dispatch('getInfo', token)
-                
-            // }).catch(err => {
-            //   this.$message.error(err)
-            // })
-          } else {
-            this.$message.error('登录失败')
+                // }, 500);
           }
         }).catch(err => {
           throw err

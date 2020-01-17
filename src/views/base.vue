@@ -13,70 +13,23 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b" router>
-          <el-menu-item index="/baseHome">
-            <i class="el-icon-s-home"></i>
-            <span slot="title">首页</span>
-          </el-menu-item>
-          <el-menu-item index="/todoList">
-            <i class="el-icon-collection-tag"></i>
-            <span slot="title">待办</span>
-          </el-menu-item>
-          <el-menu-item index="/todoListADMIN">
-            <i class="el-icon-collection-tag"></i>
-            <span slot="title">待办ADMIN</span>
-          </el-menu-item>
-          <!-- <el-menu-item index="/form">
-            <i class="el-icon-document"></i>
-            <span slot="title">基础表格</span>
-          </el-menu-item> -->
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-document"></i>
-              <span>深圳餐馆整理</span>
+          <template v-for="(item) in menus">
+            <template v-if="item.children.length >=1">
+              <el-submenu :index='item.index' :key="item.key">
+                <template slot="title">
+                  <i :class="item.icon"></i><span slot="title">{{item.title}}</span>
+                </template>
+                  <el-menu-item v-for="sub in item.children" :index='sub.index' :key="sub.index">
+                    {{sub.title}}
+                  </el-menu-item>
+              </el-submenu>
             </template>
-              <el-menu-item index="/RestaurantList">
-                餐馆列表
+            <template v-else>
+              <el-menu-item :index='item.index' :key="item.index">
+                <i :class="item.icon"></i><span slot="title">{{item.title}}</span>
               </el-menu-item>
-              <el-menu-item index="/addRestaurant">
-                添加餐馆
-              </el-menu-item>
-              <el-menu-item index="/StarRestaurant">明星餐馆</el-menu-item>
-          </el-submenu>
-          <el-menu-item index="/personalInfo">
-            <i class="el-icon-user"></i>
-            <span slot="title">个人信息</span>
-          </el-menu-item>
-          <el-menu-item index="/Internationalization">
-            <i class="el-icon-picture-outline-round"></i>
-            <span slot="title">国际化</span>
-          </el-menu-item>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-            <span>路由二</span>
             </template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="3-1">选项1</el-menu-item>
-              <el-menu-item index="3-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group>
-              <template slot="title">分组二</template>
-              <el-menu-item index="3-3">选项3</el-menu-item>
-              <el-submenu index="3-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="3-4-1">选项1</el-menu-item>
-            </el-submenu>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-menu-item index="4" disabled>
-            <i class="el-icon-document"></i>
-            <span slot="title">路由三</span>
-          </el-menu-item>
-          <el-menu-item index="5">
-            <i class="el-icon-setting"></i>
-            <span slot="title">路由四</span>
-          </el-menu-item>
+          </template>
         </el-menu>
       </el-aside>
   
@@ -96,6 +49,11 @@ import topLevelBar from '../components/base/topLevelBar'
     components: {
       topLevelBar
     },
+    computed:{
+      menus() {
+        return this.$store.state.permission.sidebarMenu
+      }
+    },
     data() {
       const item = {
         date: '2016-05-02',
@@ -104,11 +62,53 @@ import topLevelBar from '../components/base/topLevelBar'
       };
       return {
         tableData: Array(20).fill(item),
-        baseHome: ['/baseHome']
+        baseHome: ['/baseHome'],
+        menu:[{
+          icon: 'el-icon-s-home',
+          index: 'baseHome',
+          title: '首页',
+          subs:[],
+          name: 'baseHome'
+        },{
+          icon: 'el-icon-s-home',
+          index: 'todolistADMIN',
+          title: '待办admin',
+          subs:[],
+          name: 'todolistADMIN'
+        },{
+          icon: 'el-icon-document',
+          index: '1',
+          title: '深圳餐馆整理',
+          subs:[{
+            index: 'RestaurantList',
+            title: '餐馆列表',
+            name: 'RestaurantList'
+          },{
+            index: 'addRestaurant',
+            title: '添加餐馆',
+            name: 'addRestaurant'
+          },{
+            index: 'StarRestaurant',
+            title: '明星餐馆',
+            name: 'StarRestaurant'
+          }]
+        },{
+          icon: 'el-icon-user',
+          index: 'personalInfo',
+          title: '个人信息',
+          subs:[],
+          name: 'personalInfo'
+        },{
+          icon: 'el-icon-picture-outline-round',
+          index: 'Internationalization',
+          title: '国际化',
+          subs:[],
+          name: 'Internationalization'
+        }]
       }
     },
     created() {
-      this.checkCookie()
+      // this.checkCookie()
       this.$router.push('/baseHome')
     },
     methods: {
@@ -131,7 +131,7 @@ import topLevelBar from '../components/base/topLevelBar'
       console.log(info[0].split('='))
       let final = info[0].split('=')[1]
       console.log(final)
-      this.$store.commit('login', final)
+      // this.$store.commit('login', final)
     }
     }
   };
@@ -159,7 +159,7 @@ import topLevelBar from '../components/base/topLevelBar'
   .right_main {
       box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
       border: 1px solid #eee;
-      padding: 0;
+      padding: 10px;
       background: #F0F0F0;
   }
   .left_title {
@@ -173,3 +173,8 @@ import topLevelBar from '../components/base/topLevelBar'
     cursor: pointer;
   }
 </style>
+<style>
+.el-main {
+    padding:1px;
+  }
+  </style>

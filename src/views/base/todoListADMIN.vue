@@ -8,7 +8,7 @@
             </el-breadcrumb>
         </div>
         <div class="button_add">
-            <el-button @click="dialogVisibleAddEvent = true">添加事项</el-button>
+            <el-button @click="dialogVisibleAddEvent = true" class="button_add_de">添加事项</el-button>
         </div>
         <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane :label="'未处理' + '（' + notDone.length + '）'" name="first">
@@ -84,7 +84,7 @@
 
 <script>
 // import axios from 'axios'
-import {todoListADMIN,todoReject,todoAdd} from '../../api/todoList/api'
+import {todoListADMIN,todoReject,todoAdd} from '../../api/todolist/api'
 export default {
     data() {
         return {
@@ -287,5 +287,8 @@ export default {
 }
 .button_add{
     margin-top: 10px;
+}
+.button_add_de {
+    /* float: right; */
 }
 </style>

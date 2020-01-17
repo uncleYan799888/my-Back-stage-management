@@ -54,7 +54,7 @@
 
 <script>
 import axios from 'axios'
-import {todoSubmission,todoList} from '../../api/todoList/api'
+import {todoSubmission,todoList} from '../../api/todolist/api'
 export default {
     data() {
         return {

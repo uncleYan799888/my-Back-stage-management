@@ -3,18 +3,22 @@ import Vuex from 'vuex'
 import mutations from './mutations'
 import actions from './actions'
 import getters from './getters'
+import permission from './module/permission'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        userAccount: null,
-        userInfo: {
-            avatar: ''
-        } //里面有loginInfo,roles,
+        // userAccount: null,
+        userInfo: null, //里面有loginInfo,roles,
+        // UserToken: '',
+        menus: []
     },
     mutations,
     actions,
-    getters
+    getters,
+    modules: {
+        permission
+    }
 })
 
 export default store

@@ -10,7 +10,7 @@ axios.interceptors.request.use(function (config) {
     // 将token给到一个前后台约定好的key中，作为请求发送
     // let token = localStorage.getItem('token')
     // let token = store.state.userAccount
-    let token = document.cookie
+    let token = window.sessionStorage.getItem('token')
     if (token) {
     config.headers['Authorization'] = token
     }

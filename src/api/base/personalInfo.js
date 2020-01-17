@@ -1,4 +1,4 @@
-import service from '../../unit/axiosNew'
+import service from '../../utils/axiosNew'
 
 //上传头像
 export function sendAvatar(data) {

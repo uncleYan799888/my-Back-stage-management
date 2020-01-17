@@ -14,30 +14,34 @@ Vue.use(ElementUI)
 // router.prototype.$http = router
 window.router=router
 
-// const originalPush = Router.prototype.push
-// Router.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
-
 // Vue.prototype.$http = router
+// let hasMenus = false
 router.beforeEach((to, from, next) => {
-  // let token = localStorage.getItem('token')
-  // let token = store.state.userAccount
   let token = window.sessionStorage.getItem('token')
   // let info = store.state.userInfo
   // 如果已经登录，那我不干涉你，让你随便访问
   if (token) {
-    // 已登录，就根据token获取用户信息
-    store.dispatch('getInfo', token)
-    next()
+      if (!store.state.permission.permissionList) {
+        store.dispatch('permission/FETCH_PERMISSION',token).then(() => {
+          // alert('aa')
+          //next传参,当前路由废止，进入参数对应路由
+          console.log('a',to.path)
+          next({...to,replace:true})
+        })
+      } else {
+        console.log('permissionList',store.state.permission.permissionList)
+        console.log('b',to.path)
+        next()
+      }
+      // }
+    // }
   } else {
-    if (to.path !== '/login') {
-      // 如果没有登录，但你访问其他需要登录的页面，那我就让你跳到登录页面去
-      next({path: '/login'})
-    } else {
-      // 如果没有登录，但你访问的login，那就不干涉你，让你访问
-      next()
-    }
+    // hasMenus = false
+        if (to.path !== '/login') {
+            next({path: '/login'})
+        } else {
+            next()
+        }
   }
 })
 

@@ -4,20 +4,12 @@ const actions = {
   loginByUsername(state, userInfo) {
     const username = userInfo.account.trim()
     return new Promise((resolve, reject) => {
-      axios.get('http://localhost:3000/login', {params: { account: username, password: userInfo.password }}).then(res => {
+      axios.get('http://localhost:3000/login', {params: { account: userInfo.account, password: userInfo.password }}).then(res => {
         //匹配账号密码，登录成功返回一个token
         const data = res.data
         console.log('login', res)
         //将token存在本地
         window.sessionStorage.setItem('token', res.data.token)
-        state.commit('login', username)
-        //   axios.get('http://localhost:3000/getUserInfo', { params: { token: res.data.token } }).then(res => {
-        //   console.log('userinfo', res)
-        //   //将用户信息存在vuex
-        //   state.commit('saveUserInfo', res.data.data)
-        //   }).catch(err => {
-        //   throw err
-        // })
       }).catch(err => {
         throw err
       })
@@ -27,14 +19,19 @@ const actions = {
     })
   },
   getInfo(state, token) {
+    // var rusult
     return new Promise((resolve, reject) => {
       //根据token获取用户信息
       axios.get('http://localhost:3000/getUserInfo', { params: { token: token } }).then(res => {
-        console.log('userinfo', res)
+        // console.log('userinfo', res)
         //将用户信息存在vuex
         state.commit('saveUserInfo', res.data.data[0])
+        //将侧边栏存在vuex
+        // state.commit('saveMenus', res.data.menu)
+        // console.log('actionMenu', res.data.menu)
+        // rusult = res.data.menu
       })
-      resolve()
+      resolve('成功')
     }).catch(error => {
       reject(error)
     })

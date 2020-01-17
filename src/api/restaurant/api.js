@@ -1,4 +1,4 @@
-import service from '../../unit/axiosNew'
+import service from '../../utils/axiosNew'
 
 // 区域种类选择框
 export function FoodListInput(params) {

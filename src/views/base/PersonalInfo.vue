@@ -16,7 +16,11 @@
 import { sendAvatar,getUserInfo } from '../../api/base/personalInfo'
 import { mapState } from 'vuex'
   export default {
-    computed:mapState(['userInfo']),
+    computed:{
+      ...mapState({
+        userInfo: state => state.permission.userInfo
+      })
+    },
     data() {
       return {
         imageUrl: '',

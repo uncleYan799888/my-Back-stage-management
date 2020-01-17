@@ -96,9 +96,9 @@ import { mapState } from 'vuex'
 export default {
     computed: {
     ...mapState({
-    name:state => state.userInfo.name,
-    identity: state => state.userInfo.identity,
-    avatar: state => state.userInfo.avatar
+    name:state => state.permission.userInfo.name,
+    identity: state => state.permission.userInfo.identity,
+    avatar: state => state.permission.userInfo.avatar
     })
 },
     data() {
