@@ -20,24 +20,22 @@ export default {
     },
     save_userInfo(state, data) {
       state.userInfo = data
+    },
+    //退出
+    login_out(state) {
+      state.permissionList = null
+      state.sidebarMenu = null
+      state.userInfo = null
     }
   },
   actions: {
+    //根据token获取用户信息和可访问菜单
     async FETCH_PERMISSION({ commit, state },token) {
       let result = await fetchPermission(token)
-      //result.data.data[0],result.data.menu
       console.log('rusult', result)
       let userInfo = result.data.data[0]
       let menus = result.data.menu
       let routes = createRoutes(menus)
-      // let MainContainer = asyncRouterMap.find(v => v.path === '')
-      // let children = MainContainer.children
-      // console.log('children',children)
-      // children.push(...routes)
-      // routes.foreach(e => {
-      //   console.log('e',e)
-      // })
-      // setDefaultRoute([MainContainer])
       console.log('routes', routes)
       router.options.routes = routes
       router.addRoutes(routes)

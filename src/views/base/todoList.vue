@@ -16,11 +16,11 @@
                             <el-tag type="danger" v-if="item.type === 'c'">被驳回</el-tag>
                         </div>
                         <div class="first_item_time">
-                            <div><span>{{item.event_time}}</span></div>
+                            <div>开始时间：<span class="first_item_msg">{{item.event_time}}</span></div>
                             <el-button size='small' class="first_item_time_btn" @click="submit(item.eid)">已处理</el-button>
                         </div>
                     </div>
-                    <el-button type='primary' @click="open('全部标为已读')">全部标为已读</el-button>
+                    <!-- <el-button type='primary' @click="open('全部标为已读')">全部标为已读</el-button> -->
                 </div>
             </el-tab-pane>
             <el-tab-pane :label="'待管理员审批' + '（' + notPass.length + '）'" name="second">
@@ -28,12 +28,12 @@
                     <div class="first_item" v-for="(item, index) in notPass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
-                            <el-button size='small' class="first_item_time_btn">查看原因</el-button>
-                            <el-button size='small'>已处理</el-button>
+                            开始时间：<span class="first_item_msg">{{item.event_time}}</span>
+                            <!-- <el-button size='small' class="first_item_time_btn">查看原因</el-button>
+                            <el-button size='small'>已处理</el-button> -->
                         </div>
                     </div>
-                    <el-button type='danger' @click="open('全部删除')">全部删除</el-button>
+                    <!-- <el-button type='danger' @click="open('全部删除')">全部删除</el-button> -->
                 </div>
             </el-tab-pane>
             <el-tab-pane :label="'已完成' + '（' + AlreadyDone.length + '）'" name="third">
@@ -41,11 +41,11 @@
                     <div class="first_item" v-for="(item, index) in AlreadyDone" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
-                            <el-button size='small' class="first_item_time_btn" @click="oneEven('Deleted', index)">还原</el-button>
+                            开始时间：<span class="first_item_msg">{{item.event_time}}</span>
+                            <!-- <el-button size='small' class="first_item_time_btn" @click="oneEven('Deleted', index)">还原</el-button> -->
                         </div>
                     </div>
-                    <el-button type='danger' @click="open('清空回收站')">清空回收站</el-button>
+                    <!-- <el-button type='danger' @click="open('清空回收站')">清空回收站</el-button> -->
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import {todoSubmission,todoList} from '../../api/todolist/api'
 export default {
     data() {
@@ -84,35 +83,35 @@ export default {
         this.second = this.second.concat(obj)
         }
     },
-    evenALL(name) {
-        if (name === '全部标为已读') {
-            this.second = this.second.concat(this.first)
-            this.first = []
-        } else if (name === '全部删除') {
-            this.Deleted = this.Deleted.concat(this.second)
-            this.second = []
-        } else {
-            this.Deleted = []
-        }
-    },
-    open(name) {
-        this.$confirm(`确定${name}?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-        }).then(() => {
-            this.evenALL(name)
-        this.$message({
-            type: 'success',
-            message: '操作成功!'
-        });
-        }).catch(() => {
-        this.$message({
-            type: 'info',
-            message: '已取消'
-        });          
-        });
-    },
+    // evenALL(name) {
+    //     if (name === '全部标为已读') {
+    //         this.second = this.second.concat(this.first)
+    //         this.first = []
+    //     } else if (name === '全部删除') {
+    //         this.Deleted = this.Deleted.concat(this.second)
+    //         this.second = []
+    //     } else {
+    //         this.Deleted = []
+    //     }
+    // },
+    // open(name) {
+    //     this.$confirm(`确定${name}?`, '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     type: 'warning'
+    //     }).then(() => {
+    //         this.evenALL(name)
+    //     this.$message({
+    //         type: 'success',
+    //         message: '操作成功!'
+    //     });
+    //     }).catch(() => {
+    //     this.$message({
+    //         type: 'info',
+    //         message: '已取消'
+    //     });          
+    //     });
+    // },
     getTodoList() {
         todoList().then(res => {
             console.log(res)
@@ -170,7 +169,7 @@ export default {
 }
 .first_item_time_btn {
     flex: 1;
-    margin-left: 50px;
+    margin-left: 10px;
 }
 .first_item_msg_detailed{
     margin-right: 10px;

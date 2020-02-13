@@ -4,7 +4,22 @@
           <div class="TopLevelBarInfoVartar">
             <el-avatar :size="50" fit="fill" :src="avatar"></el-avatar>
           </div>
-          <div class="TopLevelBarInfoName">{{name}}</div>
+          <div class="TopLevelBarInfoName">
+            <!-- <i class="el-icon-more options"></i>
+            <div class="options_detail"></div> -->
+            <el-dropdown trigger="click" @command="handleCommand">
+              <span class="el-dropdown-link">
+                {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command='changePassword'>修改密码</el-dropdown-item>
+                <el-dropdown-item command='exit'>退出登录</el-dropdown-item>
+                <!-- <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-circle-check">蚵仔煎</el-dropdown-item> -->
+              </el-dropdown-menu>
+            </el-dropdown>
+          </div>
         </div>
     </div>
 </template>
@@ -26,6 +41,16 @@ export default {
     methods: {
       back() {
         this.$router.push('/base')
+      },
+      handleCommand(command) {
+        // this.$message('click on item ' + command);
+        if(command === 'changePassword'){
+          this.$router.push('/changePassword')
+        }else{
+          this.$store.commit('permission/login_out')
+          window.sessionStorage.removeItem('token')
+          this.$router.push('/login')
+        }
       }
     }
 }
@@ -49,10 +74,6 @@ export default {
   /* margin-left: 20px; */
 }
 .TopLevelBarInfoVartar {
-  /* width: 30px;
-  height: 30px; */
-  /* border-radius: 50%; */
-  /* background: #333; */
   margin-top: 5px;
   padding-right: 10px;
 }
@@ -70,4 +91,16 @@ export default {
   color: #f45468;
   cursor: pointer;
 }
+.el-dropdown-link {
+    cursor: pointer;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
+  }
+  .demonstration {
+    display: block;
+    color: #8492a6;
+    font-size: 14px;
+    /* margin-bottom: 20px; */
+  }
 </style>

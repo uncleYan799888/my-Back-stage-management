@@ -16,11 +16,27 @@
                     <div class="first_item" v-for="(item, index) in notDone" :key="index">
                         <div class="first_item_msg" @click="showDialogVisible(item)">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div><span>{{item.event_time}}</span></div>
-                            <el-button size='small' class="first_item_time_btn" @click="oneEven('first', index)">已处理</el-button>
+                            <div>
+                                处理人：<span class="first_item_msg">{{item.personnel_name}} </span>
+                                开始时间：<span class="first_item_msg"> {{item.event_time}}</span>
+                            </div>
+                            <el-button size='small' type='danger' @click="showDialogVisible(item)">驳 回</el-button>
+                            <el-button size='small' class="first_item_time_btn" @click="toPass2(item.eid)">通 过</el-button>
                         </div>
                     </div>
-                    <!-- <el-button type='primary' @click="open('全部标为已读')">全部标为已读</el-button> -->
+                </div>
+            </el-tab-pane>
+            <el-tab-pane :label="'员工未处理' + '（' + ExecutorTodo.length + '）'" name="ExecutorTodo">
+                <div class="first">
+                    <div class="first_item" v-for="(item, index) in ExecutorTodo" :key="index">
+                        <div class="first_item_msg">{{item.event_detailed}}</div>
+                        <div class="first_item_time">
+                            <div>
+                                处理人：<span class="first_item_msg">{{item.personnel_name}} </span>
+                                开始时间：<span class="first_item_msg"> {{item.event_time}}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </el-tab-pane>
             <el-tab-pane :label="'已驳回' + '（' + notPass.length + '）'" name="second">
@@ -28,12 +44,19 @@
                     <div class="first_item" v-for="(item, index) in notPass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
-                            <el-button size='small' class="first_item_time_btn">查看原因</el-button>
-                            <el-button size='small'>已处理</el-button>
+                            <div>
+                                处理人：<span class="first_item_msg">{{item.personnel_name}} </span>
+                                开始时间：<span class="first_item_msg"> {{item.event_time}}</span>
+                            </div>
+                            <el-popover
+                                placement="top-start"
+                                title="驳回原因"
+                                trigger="hover"
+                                :content="item.reason">
+                                <el-button size='small' class="first_item_time_btn" slot="reference">查看原因</el-button>
+                            </el-popover>
                         </div>
                     </div>
-                    <!-- <el-button type='danger' @click="open('全部删除')">全部删除</el-button> -->
                 </div>
             </el-tab-pane>
             <el-tab-pane :label="'已完成' + '（' + pass.length + '）'" name="third">
@@ -41,11 +64,13 @@
                     <div class="first_item" v-for="(item, index) in pass" :key="index">
                         <div class="first_item_msg">{{item.event_detailed}}</div>
                         <div class="first_item_time">
-                            <div>{{item.event_time}}</div>
-                            <el-button size='small' class="first_item_time_btn" @click="oneEven('Deleted', index)">还原</el-button>
+                            <div>
+                                处理人：<span class="first_item_msg">{{item.personnel_name}} </span>
+                                开始时间：<span class="first_item_msg"> {{item.event_time}}</span>
+                                结束时间：<span class="first_item_msg"> {{item.end_time}}</span>
+                            </div>
                         </div>
                     </div>
-                    <!-- <el-button type='danger' @click="open('清空回收站')">清空回收站</el-button> -->
                 </div>
             </el-tab-pane>
         </el-tabs>
@@ -83,7 +108,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import {todoListADMIN,todoReject,todoAdd} from '../../api/todolist/api'
 export default {
     data() {
@@ -92,6 +116,7 @@ export default {
             notDone: [],
             notPass: [],
             pass:[],
+            ExecutorTodo:[],
             dialogVisible: false,
             dialogVisibleMsg: {
                 event_detailed: '',
@@ -126,6 +151,7 @@ export default {
             this.notDone = res.data.notDone
             this.notPass = res.data.notPass
             this.pass = res.data.pass
+            this.ExecutorTodo = res.data.ExecutorTodo
         }).catch(err => {
             throw err
         })
@@ -133,55 +159,8 @@ export default {
     handleClick(tab, event) {
         console.log(tab, event)
         },
-    oneEven(name,index) {
-        let obj
-        if (name === 'first') {
-        obj = this.first.splice(index, 1)
-        this.second = this.second.concat(obj)
-        } else if (name === 'second') {
-        obj = this.second.splice(index, 1)
-        this.Deleted = this.Deleted.concat(obj)
-        } else {
-        obj = this.Deleted.splice(index, 1)
-        this.second = this.second.concat(obj)
-        }
-    },
-    evenALL(name) {
-        if (name === '全部标为已读') {
-            this.second = this.second.concat(this.first)
-            this.first = []
-        } else if (name === '全部删除') {
-            this.Deleted = this.Deleted.concat(this.second)
-            this.second = []
-        } else {
-            this.Deleted = []
-        }
-    },
-    open(name) {
-        this.$confirm(`确定${name}?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-        }).then(() => {
-            this.evenALL(name)
-        this.$message({
-            type: 'success',
-            message: '操作成功!'
-        });
-        }).catch(() => {
-        this.$message({
-            type: 'info',
-            message: '已取消'
-        });          
-        });
-    },
     handleClose(done) {
-        // this.$confirm('确认关闭？')
-        // .then(_ => {
-        //     console.log('done',done)
             done()
-        // })
-        // .catch(_ => {});
     },
     showDialogVisible(item){
         console.log('item',item)
@@ -225,11 +204,25 @@ export default {
             throw err
         })
     },
+    toPass2(eid) {
+        this.$confirm('确认通过？').then(_ => {
+            todoReject({eid:eid,method: 'p'}).then(res =>{
+            this.$message({
+                type:'success',
+                message: '操作成功'
+            })
+            this.getData()
+        }).catch(err =>{
+            throw err
+        })
+        }).catch(_ =>{})
+    },
     todoAddCheck() {
         if(this.AddEventobj.event_detailed.length<8){
             this.AddEventDetailCheck = true
         }else{
             todoAdd(this.AddEventobj).then(res =>{
+                this.getData()
                 this.$message({
                     type: 'success',
                     message: '添加成功'
@@ -242,7 +235,6 @@ export default {
     },
     AddEventChange(item) {
         console.log('item', item)
-        // this.AddEventobj
     }
     }
 }
@@ -270,6 +262,7 @@ export default {
 }
 .first_item_msg {
     color: #2D8CF0;
+    margin-right: 10px;
 }
 .first_item_msg:hover {
     cursor: pointer;
@@ -279,7 +272,7 @@ export default {
 }
 .first_item_time_btn {
     flex: 1;
-    margin-left: 50px;
+    /* margin-left: 50px; */
 }
 .input_check {
     color: red;

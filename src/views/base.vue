@@ -37,7 +37,7 @@
     <el-header>
       <topLevelBar></topLevelBar>
     </el-header>
-    <el-main class="right_main"><router-view/></el-main>
+    <el-main class="right_main" style="padding:1px;"><router-view/></el-main>
   </el-container>
 </el-container>
   </div>
@@ -147,7 +147,12 @@ import topLevelBar from '../components/base/topLevelBar'
     color: #333;
     line-height: 60px;
   }
-  
+  .right_main {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+      border: 1px solid #eee;
+      padding: 10px;
+      background: #F0F0F0;
+  }
   .el-aside {
     color: #333;
     background: #545c64;
@@ -155,12 +160,6 @@ import topLevelBar from '../components/base/topLevelBar'
   .right {
     width:70%;
     margin-left:20px;
-  }
-  .right_main {
-      box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-      border: 1px solid #eee;
-      padding: 10px;
-      background: #F0F0F0;
   }
   .left_title {
     font-size: 25px;
@@ -173,8 +172,3 @@ import topLevelBar from '../components/base/topLevelBar'
     cursor: pointer;
   }
 </style>
-<style>
-.el-main {
-    padding:1px;
-  }
-  </style>

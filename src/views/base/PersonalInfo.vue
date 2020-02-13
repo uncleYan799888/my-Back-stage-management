@@ -1,5 +1,12 @@
 <template>
   <div class="personalInfo" v-loading='sendingAvatar'>
+    <div class="top">
+            <div class="top_title">个人信息</div>
+            <el-breadcrumb separator="/" class="breadcrumb">
+            <el-breadcrumb-item :to="{ path: '/baseHome' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>个人信息</el-breadcrumb-item>
+            </el-breadcrumb>
+    </div>
     <div class="avatar">
       <el-avatar shape="square" :size="200" fit="fit" :src="userInfo.avatar"></el-avatar>
     </div>
@@ -140,4 +147,11 @@ import { mapState } from 'vuex'
   .info_item_v {
     margin-left: 10px;
   }
+  .top_title {
+    font-size: 30px;
+    font-weight: bold;
+}
+.breadcrumb {
+    margin: 10px 0;
+}
 </style>

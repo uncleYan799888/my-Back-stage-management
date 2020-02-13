@@ -1,5 +1,5 @@
 import axios from 'axios'
-import restaurant from './restaurant'
+// import restaurant from './restaurant'
 
 // restaurant循环遍历输出不同的请求方法
 const instance = axios.create({

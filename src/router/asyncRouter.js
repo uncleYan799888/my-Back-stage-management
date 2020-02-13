@@ -7,7 +7,8 @@ const asyncRouter = {
   StarRestaurant:{ path: '/StarRestaurant', name: 'StarRestaurant',component: () => import('../views/restaurant/StarRestaurant'),meta: ['ADMIN','SUPER_EDITOR','TOURIST']},
   personalInfo:{ path: '/personalInfo', name: 'personalInfo',component: () => import('../views/base/PersonalInfo'),meta: ['ADMIN','SUPER_EDITOR','TOURIST']},
   Internationalization:{ path: '/Internationalization',name: 'Internationalization', component: () => import('../views/base/Internationalization'),meta: ['ADMIN','SUPER_EDITOR','TOURIST']},
-  todoListADMIN:{ path: '/todoListADMIN', name: 'todoListADMIN',component: () => import('../views/base/todoListADMIN'),meta: ['ADMIN','SUPER_EDITOR']}
+  todoListADMIN: { path: '/todoListADMIN', name: 'todoListADMIN', component: () => import('../views/base/todoListADMIN'), meta: ['ADMIN', 'SUPER_EDITOR'] },
+  changePassword:{ path: '/changePassword', name: 'changePassword',component: () => import('../views/base/changePassword'),meta: ['ADMIN','SUPER_EDITOR']}
 }
 
 export default asyncRouter 

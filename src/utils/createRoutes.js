@@ -14,7 +14,7 @@ export function createRoutes(userRouter = []) {
     generateRoutes(children,item)
   })
   result.push(
-    {path: '*', redirect: '/base'},
+    {path: '*', redirect: '/404'},
 )
   // allRouter.forEach((v, i) => {
   //     userRouter.forEach((item, index) => {

@@ -18,12 +18,11 @@ window.router=router
 // let hasMenus = false
 router.beforeEach((to, from, next) => {
   let token = window.sessionStorage.getItem('token')
-  // let info = store.state.userInfo
   // 如果已经登录，那我不干涉你，让你随便访问
   if (token) {
+    //如果菜单栏为空，根据token获取
       if (!store.state.permission.permissionList) {
         store.dispatch('permission/FETCH_PERMISSION',token).then(() => {
-          // alert('aa')
           //next传参,当前路由废止，进入参数对应路由
           console.log('a',to.path)
           next({...to,replace:true})
@@ -33,10 +32,7 @@ router.beforeEach((to, from, next) => {
         console.log('b',to.path)
         next()
       }
-      // }
-    // }
   } else {
-    // hasMenus = false
         if (to.path !== '/login') {
             next({path: '/login'})
         } else {
