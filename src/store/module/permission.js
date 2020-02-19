@@ -33,8 +33,8 @@ export default {
     async FETCH_PERMISSION({ commit, state },token) {
       let result = await fetchPermission(token)
       console.log('rusult', result)
-      let userInfo = result.data.data[0]
-      let menus = result.data.menu
+      let userInfo = result.data[0]
+      let menus = result.menu
       let routes = createRoutes(menus)
       console.log('routes', routes)
       router.options.routes = routes

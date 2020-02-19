@@ -171,4 +171,7 @@ import topLevelBar from '../components/base/topLevelBar'
   .left_title:hover{
     cursor: pointer;
   }
+  .el-menu{
+    width:300px;
+  }
 </style>

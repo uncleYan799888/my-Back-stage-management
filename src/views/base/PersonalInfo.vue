@@ -96,7 +96,7 @@ import { mapState } from 'vuex'
         let token = window.sessionStorage.getItem('token')
         console.log('token', token)
         getUserInfo({token: token}).then(res => {
-          this.imageUrl = res.data.data.avatar
+          this.imageUrl = res.data.avatar
           console.log('拿头像', typeof this.imageUrl)
         }).catch(err => {
           throw err

@@ -13,20 +13,10 @@ export function createRoutes(userRouter = []) {
   userRouter.forEach(item => {
     generateRoutes(children,item)
   })
+  //404页面必须最后添加
   result.push(
     {path: '*', redirect: '/404'},
 )
-  // allRouter.forEach((v, i) => {
-  //     userRouter.forEach((item, index) => {
-  //       if (item.name === v.name) {
-  //         console.log('push', v)
-  //             realRoutes.push(v)
-  //       }
-  //       if (item.children.length > 0) {
-  //         createRoutes(item.children, allRouter)
-  //     }
-  //     })
-  // })
   return result
 }
 function generateRoutes(children, item) {
@@ -38,19 +28,4 @@ function generateRoutes(children, item) {
           generateRoutes(children, e)
       })
   }
-}
-/**
-*
-* @param {Array} routes 用户过滤后的路由
-*
-* 递归为所有有子路由的路由设置第一个children.path为默认路由
-*/
-export function setDefaultRoute(routes) {
-  routes.forEach((v, i) => {
-      if (v.children && v.children.length > 0) {
-        v.redirect = { name: v.children[0].name }
-        console.log('v.redirect',v.children[0].name)
-          setDefaultRoute(v.children)
-      }
-  })
 }

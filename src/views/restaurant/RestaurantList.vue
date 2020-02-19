@@ -141,7 +141,7 @@ export default {
     },
     created() {
         getData({region: 'a'}).then(res => {
-            this.tableData = res.data
+            this.tableData = res
         }).catch(err => {
             throw err
         })
@@ -149,7 +149,7 @@ export default {
     methods: {
         search() {
             getData({place: this.parame.region,type:this.parame.food}).then(res => {
-                this.tableData = res.data
+                this.tableData = res
             }).catch(err => {
                 throw err
             })
@@ -159,7 +159,7 @@ export default {
             this.parame.food = ''
             FoodListInput({tableDataSelect:this.parame.region}).then(res => {
                 console.log('a', res)
-                this.options2 = res.data
+                this.options2 = res
             }).catch(err => {
                 throw err
             })

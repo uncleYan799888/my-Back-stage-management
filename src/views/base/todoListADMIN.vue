@@ -148,10 +148,10 @@ export default {
     methods: {
         getData() {
             todoListADMIN().then(res =>{
-            this.notDone = res.data.notDone
-            this.notPass = res.data.notPass
-            this.pass = res.data.pass
-            this.ExecutorTodo = res.data.ExecutorTodo
+            this.notDone = res.notDone
+            this.notPass = res.notPass
+            this.pass = res.pass
+            this.ExecutorTodo = res.ExecutorTodo
         }).catch(err => {
             throw err
         })

@@ -6,7 +6,7 @@ const service = axios.create({
 
 
 // 添加请求拦截器
-axios.interceptors.request.use(function (config) {
+service.interceptors.request.use(config=>{
     // 将token给到一个前后台约定好的key中，作为请求发送
     // let token = localStorage.getItem('token')
     // let token = store.state.userAccount
@@ -15,9 +15,16 @@ axios.interceptors.request.use(function (config) {
     config.headers['Authorization'] = token
     }
     return config
-}, function (error) {
+},error=>{
     // Do something with request error
     return Promise.reject(error)
 })
+
+service.interceptors.response.use(res=>{
+    return res.data
+}, err => {
+    return Promise.reject(err)
+})
+
 
 export default service

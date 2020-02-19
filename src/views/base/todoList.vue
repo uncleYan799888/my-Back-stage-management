@@ -115,9 +115,9 @@ export default {
     getTodoList() {
         todoList().then(res => {
             console.log(res)
-            this.notDone = res.data.notDone
-            this.notPass = res.data.notPass
-            this.AlreadyDone = res.data.AlreadyDone
+            this.notDone = res.notDone
+            this.notPass = res.notPass
+            this.AlreadyDone = res.AlreadyDone
             // this.second = res.data.data.second
             // this.Deleted = res.data.data.Deleted
         }).catch(err => {
@@ -127,7 +127,7 @@ export default {
     submit(eid) {
         this.$confirm('确认提交？').then(_=>{
             todoSubmission({eid:eid}).then(res =>{
-            alert(res.data.msg)
+            alert(res.msg)
             this.getTodoList()
         }).catch(err =>{
             throw err
