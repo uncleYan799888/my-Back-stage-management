@@ -42,10 +42,11 @@ export default {
       console.log('login')
       axios.post('http://localhost:3000/login',{account: this.userInfo.account, password: this.userInfo.password}).then(res => {
         // this.$store.dispatch('loginByUsername',this.userInfo).then(() =>{
-          if(res.statu === 1) {
+          console.log('login-res')
+          if(res.data.statu === 1) {
             console.log('登录成功', res.token)
-            window.sessionStorage.setItem('token', res.token)
-            this.login_in(res.token)
+            window.sessionStorage.setItem('token', res.data.token)
+            this.login_in(res.data.token)
                 // setTimeout(() => {
                   this.$router.push({path: '/base'})
                 // }, 500);
