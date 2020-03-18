@@ -1,7 +1,7 @@
 <template>
   <div class="base">
-    <el-container style="height:100%;border: 1px solid #eee;">
-      <el-aside width="300px">
+    <el-container style="height:100%;">
+      <el-aside >
         <div class="left_title" @click="back">
           <i class="el-icon-platform-eleme"></i> 后台管理系统
           </div>
@@ -172,6 +172,6 @@ import topLevelBar from '../components/base/topLevelBar'
     cursor: pointer;
   }
   .el-menu{
-    width:300px;
+    border-right: 1px solid #333;
   }
 </style>

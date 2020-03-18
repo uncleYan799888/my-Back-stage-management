@@ -20,7 +20,7 @@ const routes = [
 
 
 export default new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   // base: process.env.BASE_URL,
   base: '/',
   routes

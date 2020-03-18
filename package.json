@@ -12,7 +12,8 @@
     "es6-promise": "^4.2.8",
     "vue": "^2.6.10",
     "vue-i18n": "^8.15.1",
-    "vue-router": "^3.0.7"
+    "vue-router": "^3.0.7",
+    "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.0.0",

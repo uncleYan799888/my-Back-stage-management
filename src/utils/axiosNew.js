@@ -1,7 +1,9 @@
 import axios from 'axios'
+//本地访问用外网端口，上线访问用内网端口3000
 const service = axios.create({
-    baseURL: 'http://localhost:3000',
-    timeout: 1000,
+    baseURL: 'http://118.123.19.159:12466',
+    // baseURL: 'http://localhost:3000',
+    timeout: 2000,
 })
 
 

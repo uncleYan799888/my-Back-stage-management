@@ -38,4 +38,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 7.src/api  里面根据模块分好简单封装好了axios供页面调用
 8.utils 放了供全局调用的方法，封装axios,生成路由功能
 9.页面都在views里面
-10.页面比较简单，也就这几个功能
+10.页面比较简单，也就这几个功能，旨在展示

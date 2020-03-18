@@ -3,7 +3,7 @@ import axios from 'axios'
 
 // restaurant循环遍历输出不同的请求方法
 const instance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://118.123.19.159:3000',
   timeout: 1000
 })
 const http = {} //包裹请求方法的容器

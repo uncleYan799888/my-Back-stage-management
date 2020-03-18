@@ -8,7 +8,9 @@ const asyncRouter = {
   personalInfo:{ path: '/personalInfo', name: 'personalInfo',component: () => import('../views/base/PersonalInfo'),meta: ['ADMIN','SUPER_EDITOR','TOURIST']},
   Internationalization:{ path: '/Internationalization',name: 'Internationalization', component: () => import('../views/base/Internationalization'),meta: ['ADMIN','SUPER_EDITOR','TOURIST']},
   todoListADMIN: { path: '/todoListADMIN', name: 'todoListADMIN', component: () => import('../views/base/todoListADMIN'), meta: ['ADMIN', 'SUPER_EDITOR'] },
-  changePassword:{ path: '/changePassword', name: 'changePassword',component: () => import('../views/base/changePassword'),meta: ['ADMIN','SUPER_EDITOR']}
+  changePassword: { path: '/changePassword', name: 'changePassword', component: () => import('../views/base/changePassword'), meta: ['ADMIN', 'SUPER_EDITOR'] },
+  awednd: { path: '/awednd', name: 'awednd', component: () => import('../views/base/awednd'), meta: ['ADMIN', 'SUPER_EDITOR'] },
+  README:{ path: '/README', name: 'README',component: () => import('../views/base/README'),meta: ['ADMIN','SUPER_EDITOR']}
 }
 
 export default asyncRouter 

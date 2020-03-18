@@ -15,6 +15,8 @@
       <div class="info_item">age: <span class="info_item_v">{{userInfo.age}}</span></div>
       <div class="info_item">hobby: <span v-for="(item, index) in userInfo.hobby" :key="index">{{item}} </span> </div>
       <div class="info_item">city: <span class="info_item_v">{{userInfo.city}}</span></div>
+      <div class="info_item">目标：全栈工程师，下一步scss，然后webpack，也许也会先学习移动端方面的开发，反正这几个一定要学的</div>
+      <div class="info_item">越学越感觉需要学的东西很多，平时会看犀牛书，可能还会研究一下vue的源码，不过这是慢点的事情了</div>
     </div>
   </div>
 </template>

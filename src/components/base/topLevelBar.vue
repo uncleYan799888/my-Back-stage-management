@@ -13,6 +13,8 @@
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command='changePassword'>修改密码</el-dropdown-item>
+                <el-dropdown-item command='seeweb'>查看前端代码</el-dropdown-item>
+                <el-dropdown-item command='seenode'>查看后端代码</el-dropdown-item>
                 <el-dropdown-item command='exit'>退出登录</el-dropdown-item>
                 <!-- <el-dropdown-item icon="el-icon-circle-plus-outline">螺蛳粉</el-dropdown-item>
                 <el-dropdown-item icon="el-icon-check">双皮奶</el-dropdown-item>
@@ -46,10 +48,15 @@ export default {
         // this.$message('click on item ' + command);
         if(command === 'changePassword'){
           this.$router.push('/changePassword')
-        }else{
+        }else if(command === 'exit'){
           this.$store.commit('permission/login_out')
           window.sessionStorage.removeItem('token')
           this.$router.push('/login')
+        }else if(command === 'seeweb'){
+          // this.$router.open('https://github.com/uncleYan799888/my-Back-stage-management.git')
+          window.open('https://github.com/uncleYan799888/my-Back-stage-management.git')
+        }else{
+          window.open('https://github.com/uncleYan799888/my-Back-stage-management-nodejs.git')
         }
       }
     }

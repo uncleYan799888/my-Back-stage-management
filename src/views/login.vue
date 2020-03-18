@@ -1,18 +1,21 @@
 <template>
   <div class="home">
-    <div class="landForm">
-      <h1 class="title">{{title}}</h1>
-      <div class="Account">
-        <span class="font">账号: </span><el-input v-model="userInfo.account" placeholder="请输入账号" maxlength='12'></el-input>
-      </div>
-      <div class="password">
-        <span class="font">密码: </span><el-input v-model="userInfo.password" placeholder="请输入密码" show-password></el-input>
-      </div>
-      <div class="login" @click="login">
-        <!-- <router-link to="/base">登录</router-link> -->
-        登录
+    <div class="a">
+      <div class="landForm">
+        <h1 class="title">{{title}}</h1>
+        <div class="Account">
+          <span class="font">账号: </span><el-input v-model="userInfo.account" placeholder="请输入账号" maxlength='12'></el-input>
+        </div>
+        <div class="password">
+          <span class="font">密码: </span><el-input v-model="userInfo.password" placeholder="请输入密码" show-password></el-input>
+        </div>
+        <div class="login" @click="login">
+          <!-- <router-link to="/base">登录</router-link> -->
+          登录
+        </div>
       </div>
     </div>
+    <div class="mask"></div>
   </div>
 </template>
 
@@ -24,7 +27,7 @@ export default {
   name: 'home',
   data() {
     return {
-      title: '后台管理系统',
+      title: '登录',
       userInfo: {
         account: '',
         password: ''
@@ -40,7 +43,7 @@ export default {
     ...mapMutations(['login_in']),
     login() {
       console.log('login')
-      axios.post('http://localhost:3000/login',{account: this.userInfo.account, password: this.userInfo.password}).then(res => {
+      axios.post('http://118.123.19.159:12466/login',{account: this.userInfo.account, password: this.userInfo.password}).then(res => {
         // this.$store.dispatch('loginByUsername',this.userInfo).then(() =>{
           console.log('login-res')
           if(res.data.statu === 1) {
@@ -69,7 +72,7 @@ export default {
       //   this.router.push('/base')
       //   console.log('pass')
       // }
-      this.$router.push('http://localhost:8080/base')
+      this.$router.push('/base')
     }
   }
 }
@@ -78,29 +81,38 @@ export default {
 <style scoped>
 .home {
   width: 100%;
-  height: 750px;
-  background-image: url('../assets/timg.jpg');
+  height: 100%;
+  background-image: url('../assets/background_img.jpg');
   background-repeat:no-repeat;
   background-size:100% 100%;
   -moz-background-size:100% 100%;
-  display: flex;
+}
+.a {
+  width: 100%;
+  height: 100%;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  position: relative;
 }
 .landForm {
   width: 400px;
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   /* height: 400px; */
-  background: #ffffff;
+  /* background: #ffffff; */
   /* margin: 10px auto; */
   /* position: fixed;
   top: 50%;
   left: 50%; */
   /*减去自身一半长度*/
   /* margin: 0 auto; */
-  /* transform: translate(-50%, -50%); */
+  transform: translate(-50%, -50%);
 }
 .title {
-  margin: 10px auto;
+  margin: 5px auto;
   text-align: center;
 }
 .font {
@@ -112,7 +124,7 @@ export default {
 }
 .Account {
   text-align: center;
-  margin-top: 35px;
+  margin-top: 20px;
 }
 .password {
   text-align: center;
@@ -121,16 +133,28 @@ export default {
 .login {
   text-align: center;
   background: #fc0303;
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
   width: 100px;
   margin: 20px auto;
   border-radius: 8%;
+  color:#fff;
 }
 .login:hover {
   background: #fa1d1d;
   color: #ffffff;
   cursor: pointer;
   transition: all .3s ease-in;
+}
+.mask {
+  width: 400px;
+  height:250px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 998;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
 }
 </style>

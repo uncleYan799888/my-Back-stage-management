@@ -10,7 +10,7 @@
         </div>
         <div class="select">
             <div class="select">
-                <el-select v-model="parame.region" placeholder="请选择区域" @change='searchFood'>
+                <el-select v-model="parame.region" placeholder="请选择区域">
                     <el-option
                     v-for="item in options1"
                     :key="item.value"
@@ -26,7 +26,7 @@
         <div class="table">
             <el-table
                 :data="dataTable"
-                style="width: 100%">
+                style="width: 100%" v-loading='tableloading'>
                 <el-table-column label="照片" width='60' align='center'>
                     <template slot-scope="scope">
                         <!-- <span style="margin-left: 10px">{{ scope.row.date }}</span> -->
@@ -136,34 +136,39 @@ export default {
                 size: 5,  //每页数量
                 current: 1, //初始页
                 pageSize: 5
-            }
+            },
+            tableloading: false
             }
     },
     created() {
-        getData({region: 'a'}).then(res => {
-            this.tableData = res
-        }).catch(err => {
-            throw err
-        })
+        // getData({region: 'c'}).then(res => {
+        //     this.tableData = res
+        // }).catch(err => {
+        //     throw err
+        // })
     },
     methods: {
         search() {
-            getData({place: this.parame.region,type:this.parame.food}).then(res => {
+            this.tableloading = true
+            getData({region: this.parame.region}).then(res => {
+                console.log(this.parame.region)
                 this.tableData = res
+                this.tableloading = false
             }).catch(err => {
+                this.tableloading = false
                 throw err
             })
         },
-        searchFood() {
-            this.options2 = []
-            this.parame.food = ''
-            FoodListInput({tableDataSelect:this.parame.region}).then(res => {
-                console.log('a', res)
-                this.options2 = res
-            }).catch(err => {
-                throw err
-            })
-        },
+        // searchFood() {
+        //     this.options2 = []
+        //     this.parame.food = ''
+        //     FoodListInput({tableDataSelect:this.parame.region}).then(res => {
+        //         console.log('a', res)
+        //         this.options2 = res
+        //     }).catch(err => {
+        //         throw err
+        //     })
+        // },
         handleSizeChange(val) {
             this.paging.size = val
             console.log(`每页 ${val} 条`);
